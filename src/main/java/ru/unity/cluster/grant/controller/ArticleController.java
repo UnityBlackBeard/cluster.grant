@@ -43,13 +43,15 @@ public class ArticleController {
 
         return article != null
                 ? new ResponseEntity<>(article, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new
+//тут вернуть пустой массив ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/answer")
+   //вынести в отдельный контроллер с отдельным мапингом 
+ @GetMapping("/answer")
     public ResponseEntity<String> getAnswer() {
 
-
+// тут возвращать лучше статус ок и сам созданный объект
         return new ResponseEntity<>("ok", HttpStatus.CREATED);
 
     }
