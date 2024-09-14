@@ -9,10 +9,11 @@ import ru.unity.cluster.grant.model.Article;
 import ru.unity.cluster.grant.services.ArticleService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/get")
+@RequestMapping("/")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -31,28 +32,23 @@ public class ArticleController {
     @GetMapping(value = "/articles")
     public ResponseEntity<List<Article>> read() {
         final List<Article> articles = articleService.readAll();
-
+        final ArrayList<Article> emptyList = new ArrayList<>();
         return articles != null && !articles.isEmpty()
                 ? new ResponseEntity<>(articles, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+                //: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        :new ResponseEntity<>(emptyList, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/articles/{id}")
     public ResponseEntity<Article> read(@PathVariable(name = "id") int id) {
         final Article article = articleService.read(id);
+        final Article emptyArticle = new Article();
 
         return article != null
                 ? new ResponseEntity<>(article, HttpStatus.OK)
-                : new
-//тут вернуть пустой массив ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-   //вынести в отдельный контроллер с отдельным мапингом 
- @GetMapping("/answer")
-    public ResponseEntity<String> getAnswer() {
 
-// тут возвращать лучше статус ок и сам созданный объект
-        return new ResponseEntity<>("ok", HttpStatus.CREATED);
-
-    }
 }
