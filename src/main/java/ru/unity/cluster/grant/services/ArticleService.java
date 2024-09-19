@@ -1,20 +1,20 @@
 package ru.unity.cluster.grant.services;
 
-import ru.unity.cluster.grant.model.Article;
+import ru.unity.cluster.grant.model.ArticleEntity;
 
 import java.util.List;
 
 public interface ArticleService {
 
 
-    void create (Article article);
+    void create (ArticleEntity article);
 
 
-    List<Article> readAll();
+    List<ArticleEntity> readAll();
 
-    Article read(int id);
+    ArticleEntity read(int id);
 
-    boolean update(Article article, int id);
+    boolean update(ArticleEntity article, int id);
 
     boolean delete(int id);
 

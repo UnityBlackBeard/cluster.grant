@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.unity.cluster.grant.model.Article;
+import ru.unity.cluster.grant.model.ArticleEntity;
 import ru.unity.cluster.grant.services.ArticleService;
 
 
@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/articles")
 public class ArticleController {
+
 
     private final ArticleService articleService;
 
@@ -23,16 +24,16 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @PostMapping(value = "/articles")
-    public ResponseEntity<?> create(@RequestBody Article article) {
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody ArticleEntity article) {
         articleService.create(article);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/articles")
-    public ResponseEntity<List<Article>> read() {
-        final List<Article> articles = articleService.readAll();
-        final ArrayList<Article> emptyList = new ArrayList<>();
+    @GetMapping
+    public ResponseEntity<List<ArticleEntity>> read() {
+        final List<ArticleEntity> articles = articleService.readAll();
+        final ArrayList<ArticleEntity> emptyList = new ArrayList<>();
         return articles != null && !articles.isEmpty()
                 ? new ResponseEntity<>(articles, HttpStatus.OK)
 
@@ -41,9 +42,9 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/articles/{id}")
-    public ResponseEntity<Article> read(@PathVariable(name = "id") int id) {
-        final Article article = articleService.read(id);
-        final Article emptyArticle = new Article();
+    public ResponseEntity<ArticleEntity> read(@PathVariable(name = "id") int id) {
+        final ArticleEntity article = articleService.read(id);
+
 
         return article != null
                 ? new ResponseEntity<>(article, HttpStatus.OK)

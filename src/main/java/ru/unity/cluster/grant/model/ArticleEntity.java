@@ -1,10 +1,13 @@
 package ru.unity.cluster.grant.model;
 
 import java.util.Date;
-
-public class Article {
-
+@Entity
+@Table(name = "Articles")
+public class ArticleEntity {
+    @id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String name;
     private String text;
     private String spoiler;
@@ -14,7 +17,7 @@ public class Article {
     private Date articleDate;
     private Date lectionDate;
     private String[] hashTags;
-    private String lecturerName;
+    private LecturerDto lecturer;
     private String groupArticle;
 
     public int getId() {
@@ -57,8 +60,8 @@ public class Article {
         return hashTags;
     }
 
-    public String getLecturerName() {
-        return lecturerName;
+    public LecturerDto getLecturer() {
+        return lecturer;
     }
 
     public String getGroupArticle(){
@@ -105,8 +108,8 @@ public class Article {
         this.hashTags = hashTags;
     }
 
-    public void setLecturerName(String lecturerName) {
-        this.lecturerName = lecturerName;
+    public void setLecturer(LecturerDto lecturer) {
+        this.lecturer = lecturer;
     }
     public void setGroupArticle(String groupArticle){
         this.groupArticle = groupArticle;

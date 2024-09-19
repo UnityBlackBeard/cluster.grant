@@ -5,16 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.unity.cluster.grant.model.Article;
+import ru.unity.cluster.grant.model.ArticleEntity;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/answer")
 public class CommonController {
 
 
-    @GetMapping("/answer")
+    @GetMapping
     public ResponseEntity<String> getAnswer() {
-        final Article emptyArticle = new Article();
+        final ArticleEntity emptyArticle = new ArticleEntity();
 
 // тут возвращать лучше статус ок
 // и сам созданный объект
