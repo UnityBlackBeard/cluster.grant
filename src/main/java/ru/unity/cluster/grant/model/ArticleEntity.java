@@ -1,15 +1,17 @@
 package ru.unity.cluster.grant.model;
 
+import jakarta.persistence.*;
+
+
 import java.util.Date;
 @Entity
-@Table(name = "Articles")
+@Table(name = "article")
 public class ArticleEntity {
-    @id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     private int id;
 
     private String name;
-    private String text;
+    private String mainText;
     private String spoiler;
     private String[] ImagePath;
     private String[] VideoPath;
@@ -17,7 +19,8 @@ public class ArticleEntity {
     private Date articleDate;
     private Date lectionDate;
     private String[] hashTags;
-    private LecturerDto lecturer;
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    private LecturerEntity lecturer;
     private String groupArticle;
 
     public int getId() {
@@ -28,8 +31,8 @@ public class ArticleEntity {
         return name;
     }
 
-    public String getText() {
-        return text;
+    public String getmainText() {
+        return mainText;
     }
 
     public String getSpoiler() {
@@ -60,7 +63,7 @@ public class ArticleEntity {
         return hashTags;
     }
 
-    public LecturerDto getLecturer() {
+    public LecturerEntity getLecturer() {
         return lecturer;
     }
 
@@ -76,8 +79,8 @@ public class ArticleEntity {
         this.name = name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText(String mainText) {
+        this.mainText = mainText;
     }
 
     public void setSpoiler(String spoiler) {
@@ -108,7 +111,7 @@ public class ArticleEntity {
         this.hashTags = hashTags;
     }
 
-    public void setLecturer(LecturerDto lecturer) {
+    public void setLecturer(LecturerEntity lecturer) {
         this.lecturer = lecturer;
     }
     public void setGroupArticle(String groupArticle){

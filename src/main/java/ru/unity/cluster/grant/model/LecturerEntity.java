@@ -1,16 +1,20 @@
 package ru.unity.cluster.grant.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
 @Entity
-@Table(name = "lecturers")
+@Table(name = "lecturer")
 public class LecturerEntity {
-//    @id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     private int id;
 
     private String lecturerName;
     private String lecturerBio;
-    private String [] imagePath;
+   private String[] imagePath;
 
     public int getId() {
         return id;
