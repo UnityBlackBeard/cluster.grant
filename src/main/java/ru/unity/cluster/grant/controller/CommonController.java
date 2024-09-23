@@ -16,8 +16,6 @@ public class CommonController {
     public ResponseEntity<String> getAnswer() {
         final ArticleEntity emptyArticle = new ArticleEntity();
 
-// тут возвращать лучше статус ок
-// и сам созданный объект
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
 

@@ -1,15 +1,11 @@
 package ru.unity.cluster.grant.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.unity.cluster.grant.model.ArticleEntity;
 import ru.unity.cluster.grant.model.LecturerEntity;
-import ru.unity.cluster.grant.services.ArticleService;
 import ru.unity.cluster.grant.services.ILecturerService;
-import ru.unity.cluster.grant.services.LecturerServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,6 @@ private final ILecturerService lecturerService;
         return lecturers != null && !lecturers.isEmpty()
                 ? new ResponseEntity<>(lecturers, HttpStatus.OK)
 
-                //: new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 :new ResponseEntity<>(emptyList, HttpStatus.NO_CONTENT);
     }
 
@@ -50,5 +45,24 @@ private final ILecturerService lecturerService;
         return lecturer != null
                 ? new ResponseEntity<>(lecturer, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping (value = "/{id}")
+    public ResponseEntity<?>update(@PathVariable (name = "id") int id, @RequestBody LecturerEntity lecturer){
+
+        final boolean updated  = lecturerService.update(lecturer, id);
+
+        return updated
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+
+    }
+    @DeleteMapping (value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable (name = "id") int id){
+        final boolean deleted = lecturerService.delete(id);
+
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

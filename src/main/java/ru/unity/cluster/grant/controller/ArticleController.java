@@ -37,11 +37,10 @@ public class ArticleController {
         return articles != null && !articles.isEmpty()
                 ? new ResponseEntity<>(articles, HttpStatus.OK)
 
-                //: new ResponseEntity<>(HttpStatus.NOT_FOUND);
         :new ResponseEntity<>(emptyList, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/articles/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ArticleEntity> read(@PathVariable(name = "id") int id) {
         final ArticleEntity article = articleService.read(id);
 
@@ -51,5 +50,24 @@ public class ArticleController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ArticleEntity> update(@PathVariable(name = "id") int id, @RequestBody ArticleEntity article){
+
+        final boolean updated  = articleService.update(article, id);
+        return updated
+        ? new ResponseEntity<>(HttpStatus.OK)
+        : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+
+    }
+
+    @DeleteMapping (value = "/{id}")
+    public ResponseEntity<?> delete (@PathVariable(name  = "id") int id){
+
+        final boolean deleted  = articleService.delete(id);
+
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 
 }
